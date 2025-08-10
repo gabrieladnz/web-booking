@@ -1,1 +1,89 @@
-<p>navbar works!</p>
+<header class="navbar">
+    <div class="navbar__container">
+        <div class="navbar__brand">
+            <img src="assets/logo/logo.png" alt="JalaBooking Seahorse Logo"
+                class="navbar__logo-image" />
+            <span class="navbar__logo-text">JalaBooking</span>
+        </div>
+
+        <nav class="navbar__nav--desktop">
+            <a href="#hoteis" class="navbar__nav-link">Hotéis</a>
+            <a href="#reservas" class="navbar__nav-link">Minhas reservas</a>
+            <a href="#contato" class="navbar__nav-link">Contato</a>
+        </nav>
+
+        <div class="navbar__auth--desktop">
+            <button class="button button--ghost" (click)="onLoginClick()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="button__icon">
+                    <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
+                    <polyline points="10 17 15 12 10 7" />
+                    <line x1="15" y1="12" x2="3" y2="12" />
+                </svg>
+                Entrar
+            </button>
+            <button class="button button--primary" (click)="onSignupClick()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="button__icon">
+                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                    <circle cx="9" cy="7" r="4" />
+                    <line x1="22" y1="8" x2="22" y2="14" />
+                    <line x1="19" y1="11" x2="25" y2="11" />
+                </svg>
+                Cadastrar
+            </button>
+        </div>
+
+        <button class="navbar__menu-toggle" (click)="toggleMenu()">
+            @if (!isMenuOpen) {
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="4" x2="20" y1="12" y2="12" />
+                <line x1="4" x2="20" y1="6" y2="6" />
+                <line x1="4" x2="20" y1="18" y2="18" />
+            </svg>
+            } @else {
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+            }
+        </button>
+    </div>
+
+    @if (isMenuOpen) {
+    <div class="navbar__mobile-menu">
+        <nav class="navbar__nav--mobile">
+            <a href="#hoteis" class="navbar__nav-link" (click)="closeMenu()">Hotéis</a>
+            <a href="#reservas" class="navbar__nav-link" (click)="closeMenu()">Minhas Reservas</a>
+            <a href="#contato" class="navbar__nav-link" (click)="closeMenu()">Contato</a>
+        </nav>
+        <div class="navbar__auth--mobile">
+            <button class="button button--ghost" (click)="onLoginClick()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="button__icon">
+                    <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
+                    <polyline points="10 17 15 12 10 7" />
+                    <line x1="15" y1="12" x2="3" y2="12" />
+                </svg>
+                Entrar
+            </button>
+            <button class="button button--primary" (click)="onSignupClick()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="button__icon">
+                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                    <circle cx="9" cy="7" r="4" />
+                    <line x1="22" y1="8" x2="22" y2="14" />
+                    <line x1="19" y1="11" x2="25" y2="11" />
+                </svg>
+                Cadastrar
+            </button>
+        </div>
+    </div>
+    }
+</header>

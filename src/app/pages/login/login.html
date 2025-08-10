@@ -1,1 +1,77 @@
-<p>login works!</p>
+<div class="login-modal__overlay" (click)="onClose()">
+    <div class="login-modal__content" (click)="$event.stopPropagation()">
+        <button class="login-modal__close-button" (click)="onClose()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+        </button>
+
+        <div class="login-modal__header">
+            <h2 class="login-modal__title">Entrar</h2>
+        </div>
+
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-modal__form" novalidate>
+            <div class="login-modal__group">
+                <label for="email" class="login-modal__label">E-mail</label>
+                <input id="email" type="email" formControlName="email" placeholder="seu@email.com"
+                    class="login-modal__control">
+                @if (formControls['email'].invalid && (formControls['email'].dirty || formControls['email'].touched)) {
+                <div class="login-modal__error">
+                    @if (formControls['email'].errors?.['required']) {
+                    <span>E-mail é obrigatório.</span>
+                    }
+                    @if (formControls['email'].errors?.['email']) {
+                    <span>Formato de e-mail inválido.</span>
+                    }
+                </div>
+                }
+            </div>
+
+            <div class="login-modal__group">
+                <label for="password" class="login-modal__label">Senha</label>
+                <div class="login-modal__password-wrapper">
+                    <input id="password" [type]="showPassword ? 'text' : 'password'" formControlName="password"
+                        placeholder="Sua senha" class="login-modal__control">
+                    <button type="button" (click)="togglePasswordVisibility()" class="login-modal__password-toggle">
+                        @if (showPassword) {
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24" />
+                            <path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68" />
+                            <path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61" />
+                            <line x1="2" x2="22" y1="2" y2="22" />
+                        </svg>
+                        } @else {
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
+                            <circle cx="12" cy="12" r="3" />
+                        </svg>
+                        }
+                    </button>
+                </div>
+                @if (formControls['password'].invalid && (formControls['password'].dirty ||
+                formControls['password'].touched)) {
+                <div class="login-modal__error">
+                    @if (formControls['password'].errors?.['required']) {
+                    <span>Senha é obrigatória.</span>
+                    }
+                </div>
+                }
+            </div>
+
+            <button type="submit" class="button button--primary button--full-width">
+                Entrar
+            </button>
+        </form>
+
+        <div class="login-modal__switch-section">
+            <p class="login-modal__switch-text">Ainda não tem uma conta?</p>
+            <button (click)="onNavigateToSignup()" class="button button--ghost">
+                Criar conta
+            </button>
+        </div>
+    </div>
+</div>
