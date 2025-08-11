@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { Register } from '../register/register';
+import { AuthService } from '../../core/services/auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,7 @@ export class Login implements OnInit {
   public loginForm!: FormGroup;
   public showPassword = false;
 
-  constructor(private fb: FormBuilder, private dialogRef: MatDialogRef<Login>, private dialog: MatDialog) { }
+  constructor(private fb: FormBuilder, private dialogRef: MatDialogRef<Login>, private dialog: MatDialog, private authService: AuthService) { }
 
   public ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -44,12 +45,19 @@ export class Login implements OnInit {
     this.dialog.open(Register);
   }
 
-  public onSubmit(): void {
+  public async onSubmit(): Promise<void> {
     if (this.loginForm.invalid) {
       this.loginForm.markAllAsTouched();
       return;
     }
-    
-    this.onClose();
+
+    try {
+      const response = await this.authService.login(this.loginForm.value);
+      console.log(response);
+      this.onClose();
+    } catch (error) {
+      console.error(error);
+    }
   }
+
 }

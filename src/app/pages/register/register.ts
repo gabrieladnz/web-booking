@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angula
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { Login } from '../login/login';
+import { AuthService } from '../../core/services/auth/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -20,7 +21,8 @@ export class Register implements OnInit {
   constructor(
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<Register>,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private authService: AuthService
   ) { }
 
   public ngOnInit(): void {
@@ -50,12 +52,18 @@ export class Register implements OnInit {
     this.dialog.open(Login);
   }
 
-  public onSubmit(): void {
+  public async onSubmit(): Promise<void> {
     if (this.registerForm.invalid) {
       this.registerForm.markAllAsTouched();
       return;
     }
-    
-    this.onClose();
+
+    try {
+      const response = await this.authService.register(this.registerForm.value);
+      console.log(response);
+      this.onClose();
+    } catch (error) {
+      console.error(error);
+    }
   }
 }
