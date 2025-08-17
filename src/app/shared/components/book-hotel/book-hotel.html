@@ -1,0 +1,74 @@
+<section class="reservation-modal__overlay" (click)="onClose()">
+    <div class="reservation-modal__content" (click)="$event.stopPropagation()">
+        <button class="reservation-modal__close-button" (click)="onClose()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+        </button>
+
+        <div class="reservation-modal__header">
+            <h2 class="reservation-modal__title">Criar reserva</h2>
+        </div>
+
+        <form [formGroup]="reservationForm" (ngSubmit)="onSubmit()" class="reservation-modal__form" novalidate>
+            <div class="reservation-modal__grid">
+                <div class="reservation-modal__group">
+                    <label for="firstName" class="reservation-modal__label">Nome</label>
+                    <input id="firstName" formControlName="firstName" placeholder="Seu nome"
+                        class="reservation-modal__control">
+                    @if (formControls['firstName'].invalid && (formControls['firstName'].dirty ||
+                    formControls['firstName'].touched)) {
+                    <div class="reservation-modal__error">
+                        <span>Nome é obrigatório.</span>
+                    </div>
+                    }
+                </div>
+
+                <div class="reservation-modal__group">
+                    <label for="lastName" class="reservation-modal__label">Sobrenome</label>
+                    <input id="lastName" formControlName="lastName" placeholder="Seu sobrenome"
+                        class="reservation-modal__control">
+                    @if (formControls['lastName'].invalid && (formControls['lastName'].dirty ||
+                    formControls['lastName'].touched)) {
+                    <div class="reservation-modal__error">
+                        <span>Sobrenome é obrigatório.</span>
+                    </div>
+                    }
+                </div>
+            </div>
+
+            <div class="reservation-modal__group">
+                <label for="phone" class="reservation-modal__label">Telefone de contato</label>
+                <input id="phone" type="tel" formControlName="phone" placeholder="(99) 99999-9999"
+                    class="reservation-modal__control">
+                @if (formControls['phone'].invalid && (formControls['phone'].dirty || formControls['phone'].touched)) {
+                <div class="reservation-modal__error">
+                    <span>Telefone é obrigatório.</span>
+                </div>
+                }
+            </div>
+
+            <div class="reservation-modal__group">
+                <label for="email" class="reservation-modal__label">E-mail</label>
+                <input id="email" type="email" formControlName="email" placeholder="seu@email.com"
+                    class="reservation-modal__control">
+                @if (formControls['email'].invalid && (formControls['email'].dirty || formControls['email'].touched)) {
+                <div class="reservation-modal__error">
+                    @if (formControls['email'].errors?.['required']) {
+                    <span>E-mail é obrigatório.</span>
+                    }
+                    @if (formControls['email'].errors?.['email']) {
+                    <span>Formato de e-mail inválido.</span>
+                    }
+                </div>
+                }
+            </div>
+
+            <button type="submit" class="button button--primary button--full-width">
+                Confirmar Reserva
+            </button>
+        </form>
+    </div>
+</section>
