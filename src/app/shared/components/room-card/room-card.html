@@ -1,0 +1,50 @@
+<section class="room-card">
+    <div class="room-card__image-wrapper">
+        <img [src]="room.image" [alt]="room.name" class="room-card__image" />
+        <div class="room-card__price-badge">
+            {{ room.price }}/noite
+        </div>
+    </div>
+
+    <div class="room-card__header">
+        <h3 class="room-card__title">{{ room.name }}</h3>
+        <p class="room-card__description">{{ room.description }}</p>
+    </div>
+
+    <div class="room-card__content">
+        <div class="room-card__details">
+            <div class="room-card__detail-item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                    <circle cx="9" cy="7" r="4" />
+                    <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                </svg>
+                <span>{{ room.capacity }}</span>
+            </div>
+            <div class="room-card__detail-item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M2 4v16h20V4Z" />
+                    <path d="M2 10h20" />
+                    <path d="M12 4v6" />
+                </svg>
+                <span>{{ room.beds }}</span>
+            </div>
+        </div>
+
+        <div class="room-card__amenities">
+            <h4 class="room-card__amenities-title">Comodidades:</h4>
+            <div class="room-card__amenities-list">
+                @for(amenity of room.amenities; track amenity) {
+                <span class="room-card__amenity-badge">{{ amenity }}</span>
+                }
+            </div>
+        </div>
+
+        <button class="button button--outline">
+            Ver disponibilidade
+        </button>
+    </div>
+</section>

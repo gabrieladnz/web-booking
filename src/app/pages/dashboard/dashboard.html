@@ -1,7 +1,135 @@
 <app-navbar></app-navbar>
 
-<main>
-     <!-- TODO: implementar dashboard -->
+<main class="dashboard">
+     <section class="dashboard__hero-section" id="introducao">
+          <div class="dashboard__hero-background"></div>
+          <div class="dashboard__hero-pattern"></div>
+
+          <div class="dashboard__hero-content">
+               <div class="dashboard__hero-container">
+                    <h1 class="dashboard__hero-title">
+                         Descubra o seu
+                         <span class="dashboard__hero-title--highlight">refúgio perfeito</span>
+                    </h1>
+
+                    <p class="dashboard__hero-subtitle">
+                         Reserve os melhores hotéis com facilidade e conforto.
+                         Experiências únicas esperam por você em cada destino.
+                    </p>
+
+                    <app-search-hotels></app-search-hotels>
+
+                    <div class="dashboard__hero-stats">
+                         <div class="dashboard__hero-stat-item">
+                              <div class="dashboard__hero-stat-number">150+</div>
+                              <div class="dashboard__hero-stat-label">Hotéis</div>
+                         </div>
+                         <div class="dashboard__hero-stat-item">
+                              <div class="dashboard__hero-stat-number">50k+</div>
+                              <div class="dashboard__hero-stat-label">Reservas</div>
+                         </div>
+                         <div class="dashboard__hero-stat-item">
+                              <div class="dashboard__hero-stat-number">25</div>
+                              <div class="dashboard__hero-stat-label">Cidades</div>
+                         </div>
+                         <div class="dashboard__hero-stat-item">
+                              <div class="dashboard__hero-stat-number">4.8</div>
+                              <div class="dashboard__hero-stat-label">Avaliação</div>
+                         </div>
+                    </div>
+               </div>
+          </div>
+     </section>
+
+     <section id="destinos"></section>
+
+     <section class="dashboard__rooms-section" id="quartos">
+          <div class="dashboard__rooms-container">
+               <div class="dashboard__rooms-header">
+                    <h2 class="dashboard__rooms-title">Tipos de acomodações</h2>
+                    <p class="dashboard__rooms-subtitle">
+                         Escolha o quarto perfeito para sua estadia. Cada tipo oferece conforto único e comodidades
+                         especiais.
+                    </p>
+               </div>
+
+               <div class="dashboard__rooms-grid">
+                    @for(room of roomTypes; track room.id) {
+                    <app-room-card [room]="room"></app-room-card>
+                    }
+               </div>
+          </div>
+     </section>
+
+     <section class="dashboard__features-section" id="recursos">
+          <div class="dashboard__features-container">
+               <div class="dashboard__features-header">
+                    <h2 class="dashboard__features-title">Por que escolher a JalaBooking?</h2>
+                    <p class="dashboard__features-subtitle">
+                         Oferecemos a melhor experiência em reservas de hotéis com segurança, facilidade e suporte
+                         excepcional.
+                    </p>
+               </div>
+
+               <div class="dashboard__features-grid">
+                    @for (feature of features; track feature.title) {
+                    <div class="dashboard__feature-card">
+                         <div class="dashboard__feature-icon-wrapper">
+                              @if (feature.icon === 'shield') {
+                              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
+                                   fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                   stroke-linejoin="round">
+                                   <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                              </svg>
+                              }
+                              @if (feature.icon === 'clock') {
+                              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
+                                   fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                   stroke-linejoin="round">
+                                   <circle cx="12" cy="12" r="10" />
+                                   <polyline points="12 6 12 12 16 14" />
+                              </svg>
+                              }
+                              @if (feature.icon === 'star') {
+                              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
+                                   fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                   stroke-linejoin="round">
+                                   <polygon
+                                        points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                              </svg>
+                              }
+                              @if (feature.icon === 'headphones') {
+                              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
+                                   fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                   stroke-linejoin="round">
+                                   <path d="M21 12v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-3" />
+                                   <path d="M3 12a9 9 0 0 1 18 0Z" />
+                              </svg>
+                              }
+                              @if (feature.icon === 'credit-card') {
+                              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
+                                   fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                   stroke-linejoin="round">
+                                   <rect width="20" height="14" x="2" y="5" rx="2" />
+                                   <line x1="2" x2="22" y1="10" y2="10" />
+                              </svg>
+                              }
+                              @if (feature.icon === 'map-pin') {
+                              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
+                                   fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                   stroke-linejoin="round">
+                                   <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+                                   <circle cx="12" cy="10" r="3" />
+                              </svg>
+                              }
+                         </div>
+                         <h3 class="dashboard__feature-title">{{ feature.title }}</h3>
+                         <p class="dashboard__feature-description">{{ feature.description }}</p>
+                    </div>
+                    }
+               </div>
+          </div>
+     </section>
 </main>
 
 <app-footer></app-footer>

@@ -1,0 +1,137 @@
+.room-card {
+    background-color: #FFFFFF;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    &:hover {
+        box-shadow: 0 10px 15px -3px rgba(210, 80, 98, 0.2), 0 4px 6px -4px rgba(210, 80, 98, 0.1);
+
+        .room-card__image {
+            transform: scale(1.05);
+        }
+    }
+
+    &__image-wrapper {
+        position: relative;
+        height: 192px;
+        overflow: hidden;
+    }
+
+    &__image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease-in-out;
+    }
+
+    &__price-badge {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        background-color: #BE3144;
+        color: #FFFFFF;
+        padding: 4px 8px;
+        border-radius: 6px;
+        font-size: 14px;
+        font-weight: 700;
+    }
+
+    &__header {
+        padding: 16px 24px 12px 24px;
+    }
+
+    &__title {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 16px;
+        font-weight: 700;
+        color: #BE3144;
+        margin-bottom: 4px;
+    }
+
+    &__description {
+        font-size: 14px;
+        color: #952735;
+    }
+
+    &__content {
+        padding: 12px 24px 24px 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        flex-grow: 1;
+    }
+
+    &__details {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 14px;
+        color: #952735;
+    }
+
+    &__detail-item {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        color: #D25062;
+
+        span {
+            color: #952735;
+        }
+    }
+
+    &__amenities {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    &__amenities-title {
+        font-weight: 500;
+        color: #952735;
+        font-size: 14px;
+    }
+
+    &__amenities-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+
+    &__amenity-badge {
+        background-color: #E6E6E6;
+        color: #952735;
+        padding: 2px 8px;
+        border-radius: 12px;
+        font-size: 12px;
+    }
+}
+
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    width: 100%;
+    margin-top: auto;
+
+    &--outline {
+        background-color: transparent;
+        border: 1px solid #BE3144;
+        color: #BE3144;
+
+        &:hover {
+            background-color: rgba(190, 49, 68, 0.05);
+        }
+    }
+}
