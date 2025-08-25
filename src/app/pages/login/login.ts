@@ -5,6 +5,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { Register } from '../register/register';
 import { AuthService } from '../../core/services/auth/auth.service';
+import { SnackbarService } from '../../core/services/snackbar/snackbar.service';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,7 @@ export class Login implements OnInit {
   public loginForm!: FormGroup;
   public showPassword = false;
 
-  constructor(private fb: FormBuilder, private dialogRef: MatDialogRef<Login>, private dialog: MatDialog, private authService: AuthService) { }
+  constructor(private fb: FormBuilder, private dialogRef: MatDialogRef<Login>, private dialog: MatDialog, private authService: AuthService, private snackbar: SnackbarService) { }
 
   public ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -53,9 +54,11 @@ export class Login implements OnInit {
 
     try {
       const response = await this.authService.login(this.loginForm.value);
-      console.log(response);
+      this.snackbar.success('Login realizado com sucesso!');
+      
       this.onClose();
     } catch (error) {
+      this.snackbar.error('Erro ao fazer login. Tente novamente.');
       console.error(error);
     }
   }

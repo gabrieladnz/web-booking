@@ -5,6 +5,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { Login } from '../login/login';
 import { AuthService } from '../../core/services/auth/auth.service';
+import { SnackbarService } from '../../core/services/snackbar/snackbar.service';
 
 @Component({
   selector: 'app-register',
@@ -22,7 +23,8 @@ export class Register implements OnInit {
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<Register>,
     private dialog: MatDialog,
-    private authService: AuthService
+    private authService: AuthService,
+    private snackbar: SnackbarService
   ) { }
 
   public ngOnInit(): void {
@@ -60,9 +62,10 @@ export class Register implements OnInit {
 
     try {
       const response = await this.authService.register(this.registerForm.value);
-      console.log(response);
+      this.snackbar.success('Cadastro feito com sucesso! Faça login.');
       this.onClose();
     } catch (error) {
+      this.snackbar.error('Erro ao fazer cadastro. Tente novamente.');
       console.error(error);
     }
   }
