@@ -1,0 +1,146 @@
+<app-navbar></app-navbar>
+
+<main class="contact-page">
+    <div class="contact-page__container">
+        <section class="contact-page__section">
+            <h2 class="contact-page__section-title">Como funciona</h2>
+            <div class="contact-page__grid contact-page__grid--3-cols">
+                @for(step of howItWorksSteps; track step.title) {
+                <div class="contact-page__step-card">
+                    <div class="contact-page__step-icon-wrapper">
+                        @if (step.icon === 'map-pin') { <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+                            <circle cx="12" cy="10" r="3" />
+                        </svg> }
+                        @if (step.icon === 'credit-card') { <svg xmlns="http://www.w3.org/2000/svg" width="32"
+                            height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <rect width="20" height="14" x="2" y="5" rx="2" />
+                            <line x1="2" x2="22" y1="10" y2="10" />
+                        </svg> }
+                        @if (step.icon === 'users') { <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                            <circle cx="9" cy="7" r="4" />
+                            <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                        </svg> }
+                    </div>
+                    <h3 class="contact-page__step-title">{{ step.title }}</h3>
+                    <p class="contact-page__step-description">{{ step.description }}</p>
+                </div>
+                }
+            </div>
+        </section>
+
+        <section class="contact-page__section">
+            <h2 class="contact-page__section-title">Por que escolher a JalaBooking?</h2>
+            <div class="contact-page__grid contact-page__grid--4-cols">
+                @for(item of differentiators; track item.title) {
+                <div class="contact-page__differentiator">
+                    <div class="contact-page__differentiator-icon">
+                        @if (item.icon === 'shield') { <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                        </svg> }
+                        @if (item.icon === 'headphones') { <svg xmlns="http://www.w3.org/2000/svg" width="48"
+                            height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 12v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-3" />
+                            <path d="M3 12a9 9 0 0 1 18 0Z" />
+                        </svg> }
+                        @if (item.icon === 'best-price') { <svg xmlns="http://www.w3.org/2000/svg" width="48"
+                            height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="12" x2="12" y1="2" y2="22" />
+                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                        </svg> }
+                        @if (item.icon === 'clock') { <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10" />
+                            <polyline points="12 6 12 12 16 14" />
+                        </svg> }
+                    </div>
+                    <h3 class="contact-page__differentiator-title">{{ item.title }}</h3>
+                    <p class="contact-page__differentiator-description">{{ item.description }}</p>
+                </div>
+                }
+            </div>
+        </section>
+
+        <div class="contact-page__info-card">
+            <h2 class="contact-page__info-title">Entre em contato</h2>
+            <p class="contact-page__info-subtitle">Estamos aqui para ajudar! Entre em contato conosco através dos canais
+                abaixo.</p>
+            <div class="contact-page__info-items">
+                <div class="contact-page__info-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                        <polyline points="22,6 12,13 2,6" />
+                    </svg>
+                    <div>
+                        <h3 class="contact-page__info-item-title">Email</h3>
+                        <p class="contact-page__info-item-text">contato@jalabooking.com</p>
+                        <p class="contact-page__info-item-subtext">Resposta em até 24 horas</p>
+                    </div>
+                </div>
+                <div class="contact-page__info-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path
+                            d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                    </svg>
+                    <div>
+                        <h3 class="contact-page__info-item-title">Telefone</h3>
+                        <p class="contact-page__info-item-text">0800 123 4567</p>
+                        <p class="contact-page__info-item-subtext">Seg - Sex: 8h às 18h</p>
+                    </div>
+                </div>
+                <div class="contact-page__info-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+                        <circle cx="12" cy="10" r="3" />
+                    </svg>
+                    <div>
+                        <h3 class="contact-page__info-item-title">Endereço</h3>
+                        <p class="contact-page__info-item-text">Rua das Viagens, 123<br>Centro - São Paulo, SP<br>CEP:
+                            01234-567</p>
+                    </div>
+                </div>
+                <div class="contact-page__info-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10" />
+                        <polyline points="12 6 12 12 16 14" />
+                    </svg>
+                    <div>
+                        <h3 class="contact-page__info-item-title">Horário de Atendimento</h3>
+                        <p class="contact-page__info-item-text">Segunda a Sexta: 8h às 18h<br>Sábado: 9h às
+                            15h<br>Domingo: Plantão online</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section class="contact-page__section">
+            <h2 class="contact-page__section-title">Perguntas frequentes</h2>
+            <div class="contact-page__grid contact-page__grid--2-cols">
+                @for(faq of faqItems; track faq.question) {
+                <div class="contact-page__faq-card">
+                    <h3 class="contact-page__faq-question">{{ faq.question }}</h3>
+                    <p class="contact-page__faq-answer">{{ faq.answer }}</p>
+                </div>
+                }
+            </div>
+        </section>
+    </div>
+</main>
+
+<app-footer></app-footer>

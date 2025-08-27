@@ -1,0 +1,201 @@
+.contact-page {
+    &__container {
+        max-width: 1280px;
+        margin: 64px auto 0 auto;
+        padding: 32px 16px;
+    }
+
+    &__hero {
+        text-align: center;
+        margin-bottom: 48px;
+    }
+
+    &__hero-title {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 30px;
+        font-weight: 700;
+        color: #1F2937;
+        margin-bottom: 16px;
+    }
+
+    &__hero-subtitle {
+        font-size: 18px;
+        color: #952735;
+        max-width: 672px;
+        margin-left: auto;
+        margin-right: auto;
+        line-height: 1.6;
+    }
+
+    &__section {
+        margin-bottom: 64px;
+    }
+
+    &__section-title {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 24px;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 32px;
+        color: #1F2937;
+    }
+
+    &__grid {
+        display: grid;
+        gap: 32px;
+
+        &--2-cols {
+            grid-template-columns: 1fr;
+
+            @media (min-width: 768px) {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        &--3-cols {
+            grid-template-columns: 1fr;
+
+            @media (min-width: 768px) {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        &--4-cols {
+            grid-template-columns: 1fr;
+
+            @media (min-width: 640px) {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            @media (min-width: 1024px) {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+    }
+
+    &__step-card {
+        text-align: center;
+        background-color: #FFFFFF;
+        padding: 24px;
+        border-radius: 8px;
+        border: 1px solid #E6E6E6;
+    }
+
+    &__step-icon-wrapper {
+        width: 64px;
+        height: 64px;
+        background-color: #BE3144;
+        color: #FFFFFF;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 16px auto;
+    }
+
+    &__step-title {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 16px;
+        font-weight: 700;
+        margin-bottom: 8px;
+        color: #1F2937;
+    }
+
+    &__step-description {
+        color: #952735;
+        line-height: 1.6;
+    }
+
+    &__differentiator {
+        text-align: center;
+    }
+
+    &__differentiator-icon {
+        color: #BE3144;
+        margin: 0 auto 16px auto;
+    }
+
+    &__differentiator-title {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 600;
+        margin-bottom: 8px;
+        color: #1F2937;
+    }
+
+    &__differentiator-description {
+        font-size: 14px;
+        color: #952735;
+    }
+
+    &__info-card {
+        background-color: #FFFFFF;
+        padding: 24px;
+        border-radius: 8px;
+        border: 1px solid #E6E6E6;
+        margin-bottom: 64px;
+    }
+
+    &__info-title {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 18px;
+        font-weight: 700;
+        color: #1F2937;
+    }
+
+    &__info-subtitle {
+        color: #952735;
+        margin-top: 4px;
+        margin-bottom: 24px;
+    }
+
+    &__info-items {
+        display: grid;
+        gap: 24px;
+    }
+
+    &__info-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+
+        svg {
+            color: #BE3144;
+            margin-top: 4px;
+            flex-shrink: 0;
+        }
+    }
+
+    &__info-item-title {
+        font-weight: 500;
+        color: #1F2937;
+    }
+
+    &__info-item-text {
+        color: #952735;
+    }
+
+    &__info-item-subtext {
+        font-size: 14px;
+        color: #952735;
+    }
+
+    &__faq-card {
+        background-color: #FFFFFF;
+        padding: 24px;
+        border-radius: 8px;
+        border: 1px solid #E6E6E6;
+    }
+
+    &__faq-question {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 16px;
+        font-weight: 700;
+        margin-bottom: 8px;
+        color: #1F2937;
+    }
+
+    &__faq-answer {
+        color: #952735;
+        line-height: 1.6;
+    }
+}
