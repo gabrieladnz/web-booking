@@ -1,8 +1,5 @@
+// Components
 import { Routes } from '@angular/router';
-import { Dashboard } from './pages/dashboard/dashboard';
-import { Hotel } from './pages/hotel/hotel';
-import { Booking } from './pages/booking/booking';
-import { Contact } from './pages/contact/contact';
 
 export const routes: Routes = [
     {
@@ -12,19 +9,19 @@ export const routes: Routes = [
     },
     {
         path: 'home',
-        component: Dashboard
+        loadComponent: () => import('./pages/dashboard/dashboard').then(m => m.Dashboard)
     },
     {
         path: 'hoteis',
-        component: Hotel
+        loadComponent: () => import('./pages/hotel/hotel').then(m => m.HotelComponent)
     },
     {
         path: 'minhas-reservas',
-        component: Booking
+        loadComponent: () => import('./pages/booking/booking').then(m => m.Booking)
     },
     {
         path: 'contato',
-        component: Contact
+        loadComponent: () => import('./pages/contact/contact').then(m => m.Contact)
     },
     {
         path: '**',

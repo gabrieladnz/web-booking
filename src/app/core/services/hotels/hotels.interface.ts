@@ -19,6 +19,7 @@ export interface Hotel {
     status?: string;
     createdAt: string;
     updatedAt: string;
+    images: string[];
 }
 
 export interface HotelsFilterParams {

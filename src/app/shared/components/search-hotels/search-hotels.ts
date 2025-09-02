@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-search-hotels',
@@ -9,11 +10,11 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
   styleUrl: './search-hotels.scss'
 })
 export class SearchHotels implements OnInit {
-  public searchForm!: FormGroup;
+ public searchForm!: FormGroup;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private router: Router) {}
 
-  public ngOnInit(): void {
+  ngOnInit(): void {
     this.searchForm = this.fb.group({
       destination: [''],
       checkin: [''],
@@ -23,6 +24,13 @@ export class SearchHotels implements OnInit {
   }
 
   public handleSearch(): void {
-    console.log("Searching with data:", this.searchForm.value);
+    const formValue = this.searchForm.value;
+
+    this.router.navigate(['/hoteis'], {
+      queryParams: {
+        city: formValue.destination,
+        guestCapacity: formValue.guests
+      }
+    });
   }
 }

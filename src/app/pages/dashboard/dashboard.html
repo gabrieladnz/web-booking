@@ -54,7 +54,7 @@
                </div>
 
                <div class="dashboard__rooms-grid">
-                    @for(room of roomTypes; track room.id) {
+                    @for(room of roomTypes; track trackByRoomId($index, room)) {
                     <app-room-card [room]="room"></app-room-card>
                     }
                </div>

@@ -1,7 +1,136 @@
 <app-navbar></app-navbar>
 
-<main>
+<main class="hotel-page">
+    <div class="hotel-page__container">
+        <div class="hotel-page__header">
+            <h1 class="hotel-page__title">Hotéis disponíveis</h1>
+            <p class="hotel-page__subtitle">Encontre a acomodação perfeita para sua viagem</p>
+        </div>
 
+        <div class="hotel-page__filter-card">
+            <div class="hotel-page__filter-header">
+                <h2 class="hotel-page__filter-title">Filtros</h2>
+            </div>
+            <form [formGroup]="filterForm" class="hotel-page__filter-form">
+                <div class="hotel-page__filter-search-wrapper">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8" />
+                        <path d="m21 21-4.3-4.3" />
+                    </svg>
+                    <input formControlName="searchTerm" placeholder="Buscar hotéis..."
+                        class="hotel-page__filter-control">
+                </div>
+
+                <select formControlName="selectedCity" class="hotel-page__filter-control">
+                    <option value="all">Todas as cidades</option>
+                    @for(city of cities; track city) {
+                    <option [value]="city">{{ city }}</option>
+                    }
+                </select>
+
+                <input type="number" formControlName="minPrice" placeholder="Preço mín."
+                    class="hotel-page__filter-control">
+                <input type="number" formControlName="maxPrice" placeholder="Preço máx."
+                    class="hotel-page__filter-control">
+
+                <select formControlName="guestCapacity" class="hotel-page__filter-control">
+                    <option value="any">Hóspedes</option>
+                    <option value="1">1 hóspede</option>
+                    <option value="2">2 hóspedes</option>
+                    <option value="3">3+ hóspedes</option>
+                    <option value="6">6+ hóspedes</option>
+                </select>
+            </form>
+        </div>
+
+        <div class="hotel-page__grid">
+            @for(hotel of filteredHotels; track hotel.id) {
+            <div class="hotel-page__hotel-card">
+                <div class="hotel-page__hotel-image-wrapper">
+                    @if(hotel.images && hotel.images.length > 0) {
+                    <img class="hotel-page__hotel-image" [src]="hotel.images[0]" alt="Imagem do hotel {{ hotel.name }}"
+                        class="hotel-page__hotel-image" />
+                    } @else {
+                    <div class="hotel-page__hotel-image-placeholder">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+                            <circle cx="12" cy="10" r="3" />
+                        </svg>
+                        <p>Imagem do hotel</p>
+                    </div>
+                    }
+
+                    <div class="hotel-page__hotel-price-badge">
+                        R$ {{ hotel.pricePerNight.toFixed(0) }}/noite
+                    </div>
+                </div>
+
+                <div class="hotel-page__hotel-header">
+                    <h3 class="hotel-page__hotel-name">{{ hotel.name }}</h3>
+                    <div class="hotel-page__hotel-location">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+                            <circle cx="12" cy="10" r="3" />
+                        </svg>
+                        <span>{{ hotel.location.city }}, {{ hotel.location.state }}</span>
+                    </div>
+                </div>
+                <div class="hotel-page__hotel-content">
+                    <p class="hotel-page__hotel-description">{{ hotel.description }}</p>
+                    <div class="hotel-page__hotel-details">
+                        <div class="hotel-page__hotel-detail-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                                <circle cx="9" cy="7" r="4" />
+                                <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                            </svg>
+                            <span>{{ hotel.guestCapacity }} hóspedes</span>
+                        </div>
+                        <div class="hotel-page__hotel-detail-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M2 4v16h20V4Z" />
+                                <path d="M2 10h20" />
+                                <path d="M12 4v6" />
+                            </svg>
+                            <span>{{ hotel.beds }} camas</span>
+                        </div>
+                    </div>
+                    <div class="hotel-page__hotel-amenities">
+                        @for(amenity of hotel.amenities.slice(0, 3); track amenity) {
+                        <span class="hotel-page__hotel-amenity-badge">{{ amenity }}</span>
+                        }
+                        @if(hotel.amenities.length > 3) {
+                        <span class="hotel-page__hotel-amenity-badge">+{{ hotel.amenities.length - 3 }} mais</span>
+                        }
+                    </div>
+                </div>
+                <div class="hotel-page__hotel-footer">
+                    <button class="button button--primary">Ver disponibilidade</button>
+                </div>
+            </div>
+            }
+        </div>
+
+        @if(filteredHotels.length === 0) {
+        <div class="hotel-page__no-results">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+                <circle cx="12" cy="10" r="3" />
+            </svg>
+            <h3 class="hotel-page__no-results-title">Nenhum hotel encontrado</h3>
+            <p class="hotel-page__no-results-text">Tente ajustar os filtros para encontrar mais opções.</p>
+        </div>
+        }
+    </div>
 </main>
 
 <app-footer></app-footer>

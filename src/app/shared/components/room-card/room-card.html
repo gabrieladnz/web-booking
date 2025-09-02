@@ -1,9 +1,6 @@
 <section class="room-card">
     <div class="room-card__image-wrapper">
         <img [src]="room.image" [alt]="room.name" class="room-card__image" />
-        <div class="room-card__price-badge">
-            {{ room.price }}/noite
-        </div>
     </div>
 
     <div class="room-card__header">
@@ -37,7 +34,7 @@
         <div class="room-card__amenities">
             <h4 class="room-card__amenities-title">Comodidades:</h4>
             <div class="room-card__amenities-list">
-                @for(amenity of room.amenities; track amenity) {
+                @for(amenity of room.amenities; track trackByAmenity($index, amenity)) {
                 <span class="room-card__amenity-badge">{{ amenity }}</span>
                 }
             </div>
