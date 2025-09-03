@@ -66,7 +66,7 @@ export class BookingService extends ApiService {
       const token = this.tokenService.get() || undefined;
 
       return await lastValueFrom(
-        this.get<BookingSummary[]>('api/booking/my', token),
+        this.get<BookingSummary[]>('api/booking/my', {}, token),
       );
     } catch (error) {
       throw {
@@ -81,7 +81,7 @@ export class BookingService extends ApiService {
       const token = this.tokenService.get() || undefined;
 
       return await lastValueFrom(
-        this.get<BookingDetail>(`api/booking/my/${bookingId}`, token),
+        this.get<BookingDetail>(`api/booking/my/${bookingId}`, {}, token),
       );
     } catch (error) {
       throw {

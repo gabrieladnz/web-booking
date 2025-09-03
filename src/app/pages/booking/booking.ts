@@ -1,5 +1,5 @@
 // Angular core imports
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
@@ -13,6 +13,7 @@ import { Footer } from '../../shared/components/footer/footer';
 // Services
 import { TokenService } from '../../core/services/token/token.service';
 import { BookingService } from '../../core/services/booking/booking.service';
+import { SnackbarService } from '../../core/services/snackbar/snackbar.service';
 
 // Interfaces
 import { BookingSummary } from '../../core/services/booking/booking.interface';
@@ -31,8 +32,10 @@ export class Booking implements OnInit {
   constructor(
     private tokenService: TokenService,
     public dialog: MatDialog,
-    private bookingService: BookingService
-  ) {}
+    private bookingService: BookingService,
+    private cdr: ChangeDetectorRef,
+    private snackService: SnackbarService
+  ) { }
 
   public features = [
     {
@@ -54,11 +57,21 @@ export class Booking implements OnInit {
 
   public reservations: BookingSummary[] = [];
 
-  public ngOnInit(): void {
+  public async ngOnInit(): Promise<void> {
     if (this.isAuthenticated) {
-      this.bookingService.getAllBookings().then((data) => {
-        this.reservations = data;
-      });
+      await this.loadBookings();
+    }
+  }
+
+  private async loadBookings(): Promise<void> {
+    try {
+      const response = await this.bookingService.getAllBookings();
+      this.reservations = response || [];
+      this.cdr.detectChanges();
+    } catch (error) {
+      this.reservations = [];
+      this.cdr.detectChanges();
+      this.snackService.error('Erro ao carregar suas reservas. Tente novamente.');
     }
   }
 
@@ -80,7 +93,7 @@ export class Booking implements OnInit {
       PENDING: 'Pendente',
       CANCELLED: 'Cancelada'
     };
-    
+
     return statusMap[status] || 'Desconhecido';
   }
 }
