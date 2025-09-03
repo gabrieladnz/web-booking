@@ -20,6 +20,8 @@
 
     &__subtitle {
         color: #952735;
+        font-size: 16px;
+        margin-top: 15px;
     }
 
     &__filter-card {
@@ -124,9 +126,7 @@
     &__hotel-image {
         width: 100%;
         height: 100%;
-        /* preenche exatamente a área do wrapper (que já tem height via aspect-ratio) */
         object-fit: cover;
-        /* pré-corta proporcionalmente sem distorcer */
         display: block;
     }
 

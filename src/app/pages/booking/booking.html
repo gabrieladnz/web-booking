@@ -1,7 +1,244 @@
 <app-navbar></app-navbar>
 
 <main>
+    @if (isAuthenticated) {
+    <!-- Usuário autenticado -->
+    <section class="booking-authenticated">
+        <div class="booking-authenticated__container">
+            <div class="booking-authenticated__header">
+                <h1 class="booking-authenticated__title">Minhas reservas</h1>
+                <p class="booking-authenticated__subtitle">Acompanhe todas as suas reservas em um só lugar</p>
+            </div>
 
+            @if (reservations.length === 0) {
+            <div class="booking-authenticated__no-reservations">
+                <div class="booking-authenticated__no-reservations-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M8 2v4" />
+                        <path d="M16 2v4" />
+                        <rect width="18" height="18" x="3" y="4" rx="2" />
+                        <path d="M3 10h18" />
+                    </svg>
+                </div>
+                <h3 class="booking-authenticated__no-reservations-title">Nenhuma reserva encontrada</h3>
+                <p class="booking-authenticated__no-reservations-text">Você ainda não possui reservas em nossa
+                    plataforma.</p>
+                <a routerLink="/hoteis" class="button button--primary">Buscar hotéis</a>
+            </div>
+            } @else {
+            <div class="booking-authenticated__reservations-list">
+                @for (reservation of reservations; track reservation.id) {
+                <div class="booking-authenticated__card">
+                    <div class="booking-authenticated__card-header">
+                        <div class="booking-authenticated__card-info">
+                            <h2 class="booking-authenticated__card-title">{{ reservation.hotel.name }}</h2>
+                            <div class="booking-authenticated__card-location">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+                                    <circle cx="12" cy="10" r="3" />
+                                </svg>
+                                <span>{{ reservation.hotel.location }}</span>
+                            </div>
+                        </div>
+                        <div class="booking-authenticated__card-status">
+                            <span class="booking-authenticated__status-badge"
+                                [ngClass]="'booking-authenticated__status-badge--' + reservation.status.toLowerCase()">
+                                @switch (reservation.status) {
+                                @case ('CONFIRMED') { <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                                    <polyline points="22 4 12 14.01 9 11.01" />
+                                </svg> }
+                                @case ('PENDING') { <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10" />
+                                    <polyline points="12 6 12 12 16 14" />
+                                </svg> }
+                                @case ('CANCELLED') { <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10" />
+                                    <line x1="15" y1="9" x2="9" y2="15" />
+                                    <line x1="9" y1="9" x2="15" y2="15" />
+                                </svg> }
+                                }
+                                <span>{{ getStatusText(reservation.status) }}</span>
+                            </span>
+                            <p class="booking-authenticated__confirmation-code">Código: {{ reservation.confirmationCode
+                                }}</p>
+                        </div>
+                    </div>
+
+                    <div class="booking-authenticated__card-content">
+                        <div class="booking-authenticated__details-grid">
+                            <div class="booking-authenticated__detail-item">
+                                <h4 class="booking-authenticated__detail-title">Check-in</h4>
+                                <p class="booking-authenticated__detail-text">{{ reservation.checkIn | date:'dd/MM/yyyy'
+                                    }}</p>
+                            </div>
+                            <div class="booking-authenticated__detail-item">
+                                <h4 class="booking-authenticated__detail-title">Check-out</h4>
+                                <p class="booking-authenticated__detail-text">{{ reservation.checkOut |
+                                    date:'dd/MM/yyyy' }}</p>
+                            </div>
+                            <div class="booking-authenticated__detail-item">
+                                <h4 class="booking-authenticated__detail-title">Hóspedes</h4>
+                                <p class="booking-authenticated__detail-text">{{ reservation.guests }} {{
+                                    reservation.guests === 1 ? 'pessoa' : 'pessoas' }}</p>
+                            </div>
+                            <div class="booking-authenticated__detail-item">
+                                <h4 class="booking-authenticated__detail-title">Duração</h4>
+                                <p class="booking-authenticated__detail-text">{{ reservation.nights }} {{
+                                    reservation.nights === 1 ? 'noite' : 'noites' }}</p>
+                            </div>
+                        </div>
+
+                        <hr class="booking-authenticated__separator">
+
+                        <div class="booking-authenticated__summary-grid">
+                            <div>
+                                <h4 class="booking-authenticated__summary-title">Detalhes do quarto</h4>
+                                <p class="booking-authenticated__summary-text">{{ reservation.room.name }}</p>
+                                <p class="booking-authenticated__summary-subtext">Tipo: {{ reservation.room.type }}</p>
+                            </div>
+                            <div>
+                                <h4 class="booking-authenticated__summary-title">Resumo financeiro</h4>
+                                <div class="booking-authenticated__pricing">
+                                    <div class="booking-authenticated__pricing-row">
+                                        <span>Subtotal:</span>
+                                        <span>{{ reservation.pricing.subtotal | currency:'BRL' }}</span>
+                                    </div>
+                                    <div class="booking-authenticated__pricing-row">
+                                        <span>Taxas:</span>
+                                        <span>{{ reservation.pricing.taxes | currency:'BRL' }}</span>
+                                    </div>
+                                    @if(reservation.pricing.discount > 0) {
+                                    <div
+                                        class="booking-authenticated__pricing-row booking-authenticated__pricing-row--discount">
+                                        <span>Desconto:</span>
+                                        <span>-{{ reservation.pricing.discount | currency:'BRL' }}</span>
+                                    </div>
+                                    }
+                                    <hr class="booking-authenticated__pricing-separator">
+                                    <div
+                                        class="booking-authenticated__pricing-row booking-authenticated__pricing-row--total">
+                                        <span>Total:</span>
+                                        <span>{{ reservation.pricing.total | currency:'BRL' }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        @if(reservation.status === 'CONFIRMED') {
+                        <div class="booking-authenticated__cancellation-info">
+                            <strong>Prazo para cancelamento:</strong> até {{ reservation.cancellationDeadline |
+                            date:'dd/MM/yyyy' }}
+                        </div>
+                        }
+
+                        <div class="booking-authenticated__card-actions">
+                            @if(reservation.status === 'CONFIRMED') {
+                            <button class="button button--destructive-sm">Cancelar reserva</button>
+                            }
+                            <button class="button button--outline-sm">Ver detalhes</button>
+                        </div>
+                    </div>
+                </div>
+                }
+            </div>
+            }
+        </div>
+    </section>
+
+    } @else {
+    <!-- Usuário não autenticado -->
+    <section class="booking-unauthenticated">
+        <div class="booking-unauthenticated__container">
+            <div class="booking-unauthenticated__icon-wrapper">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                </svg>
+            </div>
+
+            <h1 class="booking-unauthenticated__title">Acesso restrito</h1>
+            <p class="booking-unauthenticated__subtitle">
+                Você precisa estar logado para visualizar suas reservas e reservar hotéis.
+            </p>
+
+            <div class="booking-unauthenticated__features-grid">
+                @for(feature of features; track feature.title) {
+                <div class="booking-unauthenticated__feature-card">
+                    <div class="booking-unauthenticated__feature-icon-wrapper">
+                        @if(feature.icon === 'hotel') {
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2Z" />
+                            <path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2" />
+                            <path d="M18 12h2a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-2" />
+                            <path d="M12 2v20" />
+                            <path d="M12 12h-2v-2a2 2 0 0 1 2-2v0a2 2 0 0 1 2 2v2h-2Z" />
+                        </svg>
+                        }
+
+                        @if(feature.icon === 'calendar') {
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M8 2v4" />
+                            <path d="M16 2v4" />
+                            <rect width="18" height="18" x="3" y="4" rx="2" />
+                            <path d="M3 10h18" />
+                        </svg>
+                        }
+                        
+                        @if(feature.icon === 'user') {
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                            <circle cx="12" cy="7" r="4" />
+                        </svg>
+                        }
+                    </div>
+                    <h3 class="booking-unauthenticated__feature-title">{{ feature.title }}</h3>
+                    <p class="booking-unauthenticated__feature-description">{{ feature.description }}</p>
+                </div>
+                }
+            </div>
+
+            <div class="booking-unauthenticated__actions">
+                <div class="booking-unauthenticated__button-group">
+                    <button class="button button--primary" (click)="onLoginClick()">
+                        Fazer login
+                    </button>
+                    <button class="button button--outline" (click)="onSignupClick()">
+                        Criar conta
+                    </button>
+                </div>
+                <p class="booking-unauthenticated__signup-text">
+                    Não tem uma conta?
+                    <button class="booking-unauthenticated__signup-link" (click)="onSignupClick()">
+                        Registre-se gratuitamente
+                    </button>
+                </p>
+            </div>
+
+            <div class="booking-unauthenticated__footer">
+                <p class="booking-unauthenticated__footer-text">
+                    Ou continue navegando sem fazer login
+                </p>
+                <a routerLink="/hoteis" class="booking-unauthenticated__footer-link">
+                    Ver hotéis disponíveis
+                </a>
+            </div>
+        </div>
+    </section>
+    }
 </main>
 
 <app-footer></app-footer>
