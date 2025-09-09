@@ -21,6 +21,7 @@ import { BookingSummary } from '../../core/services/booking/booking.interface';
 // Dialog components
 import { Login } from '../login/login';
 import { Register } from '../register/register';
+import { ModalCancelBooking } from '../../shared/components/modal-cancel-booking/modal-cancel-booking';
 
 @Component({
   selector: 'app-booking',
@@ -95,5 +96,17 @@ export class Booking implements OnInit {
     };
 
     return statusMap[status] || 'Desconhecido';
+  }
+
+  protected cancelBooking(bookingId: string, hotelName: string): void {
+    this.dialog.open(ModalCancelBooking, {
+      width: '400px',
+      data: { bookingId, hotelName }
+    }).afterClosed().subscribe(async (result) => {
+      if (result === 'confirmed') {
+        await this.loadBookings();
+      }
+    }
+    );
   }
 }

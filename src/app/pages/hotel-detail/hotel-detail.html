@@ -1,0 +1,136 @@
+<app-navbar></app-navbar>
+
+<main>
+    <section class="hotel-detail">
+        <div class="hotel-detail__container">
+            <button (click)="goBack()" class="button button--ghost hotel-detail__back-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m15 18-6-6 6-6" />
+                </svg>
+                Voltar para Hotéis
+            </button>
+
+            <section class="hotel-detail__grid">
+                <div class="hotel-detail__info-column">
+                    <header class="hotel-detail__header">
+                        <div class="hotel-detail__header-main">
+                            <h1 class="hotel-detail__name">{{ hotel?.name }}</h1>
+                            <div class="hotel-detail__location">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+                                    <circle cx="12" cy="10" r="3" />
+                                </svg>
+                                <span>{{ hotel?.location?.city }}, {{ hotel?.location?.state }}</span>
+                            </div>
+                            <div class="hotel-detail__meta">
+                                @if(hotel?.status) {
+                                <span class="badge badge--secondary">{{ hotel?.status }}</span>
+                                }
+                            </div>
+                        </div>
+                        <div class="hotel-detail__price-info">
+                            <div class="hotel-detail__price">{{ hotel?.pricePerNight | currency:'BRL' }}</div>
+                            <div class="hotel-detail__price-label">por noite</div>
+                        </div>
+                    </header>
+
+                    <div class="hotel-detail__image-wrapper">
+                        @if(hotel?.images && hotel.images.length > 0) {
+                        <img [src]="hotel.images[0]" [alt]="hotel.name" class="hotel-detail__image">
+                        } @else {
+                        <div class="hotel-detail__image-placeholder">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <rect width="18" height="18" x="3" y="3" rx="2" />
+                                <circle cx="9" cy="9" r="2" />
+                                <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" />
+                            </svg>
+                            <span>Sem imagem</span>
+                        </div>
+                        }
+                    </div>
+
+                    <div class="card">
+                        <h2 class="card__title">Sobre o Hotel</h2>
+                        <p class="card__text">{{ hotel?.description }}</p>
+                    </div>
+
+                    <div class="card">
+                        <h2 class="card__title">Comodidades</h2>
+                        <div class="hotel-detail__amenities-grid">
+                            @for (amenity of hotel?.amenities; track amenity) {
+                            <div class="hotel-detail__amenity-item">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="text-jala-primary">
+                                    <path d="M5 12.55a11 11 0 0 1 14.08 0" />
+                                    <path d="M1.42 9a16 16 0 0 1 21.16 0" />
+                                    <path d="M8.53 16.11a6 6 0 0 1 6.95 0" />
+                                    <line x1="12" x2="12.01" y1="20" y2="20" />
+                                </svg>
+                                <span class="text-sm">{{ amenity }}</span>
+                            </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hotel-detail__booking-column">
+                    <div class="hotel-detail__booking-card">
+                        <div class="hotel-detail__booking-price-summary">
+                            <div class="hotel-detail__price">{{ hotel?.pricePerNight | currency:'BRL' }}</div>
+                            <div class="hotel-detail__price-label">por noite</div>
+                        </div>
+                        <div class="hotel-detail__booking-details">
+                            <div class="hotel-detail__booking-detail-item">
+                                <span>Capacidade:</span>
+                                <div>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                                        <circle cx="9" cy="7" r="4" />
+                                        <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                                        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                                    </svg>
+                                    <span>{{ hotel?.guestCapacity }} pessoas</span>
+                                </div>
+                            </div>
+                            <div class="hotel-detail__booking-detail-item">
+                                <span>Camas:</span>
+                                <div>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <path d="M2 4v16h20V4Z" />
+                                        <path d="M2 10h20" />
+                                        <path d="M12 4v6" />
+                                    </svg>
+                                    <span>{{ hotel?.beds }} camas</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="hotel-detail__booking-footer">
+                            @if (isAuthenticated) {
+                            <button (click)="openBookingModal(hotel)"
+                                class="button button--primary button--lg button--full-width">
+                                Reservar hotel
+                            </button>
+                            }
+                            @else {
+                            <button (click)="openLoginModal()" class="button button--primary button--lg button--full-width">Faça login para reservar</button>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </section>
+</main>
+
+<app-footer></app-footer>

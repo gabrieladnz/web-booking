@@ -10,11 +10,11 @@ import { Footer } from "../../shared/components/footer/footer";
 // Application services and interfaces
 import { HotelsService } from '../../core/services/hotels/hotels.service';
 import { Hotel } from '../../core/services/hotels/hotels.interface';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-hotel',
-  imports: [Navbar, Footer, ReactiveFormsModule, CommonModule],
+  imports: [Navbar, Footer, ReactiveFormsModule, CommonModule, RouterModule],
   templateUrl: './hotel.html',
   styleUrl: './hotel.scss'
 })
@@ -25,8 +25,12 @@ export class HotelComponent implements OnInit {
   public filterForm!: FormGroup;
   public errorMessage = '';
 
-  constructor(private fb: FormBuilder, private hotelsService: HotelsService, private cdr: ChangeDetectorRef, private route: ActivatedRoute
-
+  constructor(
+    private fb: FormBuilder,
+    private hotelsService: HotelsService,
+    private cdr: ChangeDetectorRef,
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
 
   public async ngOnInit(): Promise<void> {
@@ -94,7 +98,7 @@ export class HotelComponent implements OnInit {
       this.errorMessage = '';
 
       const response = await this.hotelsService.getHotelsWithFilter(params);
-      this.allHotels = response.items; // ✅ pega o array correto
+      this.allHotels = response.items;
       this.filteredHotels = [...this.allHotels];
       this.cities = [...new Set(this.allHotels.map(hotel => hotel.location.city))];
       this.cdr.detectChanges();
@@ -103,8 +107,10 @@ export class HotelComponent implements OnInit {
       this.errorMessage = 'Erro ao carregar hotéis com filtros.';
       this.allHotels = [];
       this.filteredHotels = [];
-      this.cities = [];
     }
   }
 
+  protected checkHotelDetails(hotelId: string): void {
+    this.router.navigate(['/hotel', hotelId]);
+  }
 }

@@ -1,1 +1,33 @@
-<p>modal-cancel-booking works!</p>
+<section class="modal-cancel-booking__overlay">
+    <div class="modal-cancel-booking__content">
+        <div class="modal-cancel-booking__header">
+            <div class="modal-cancel-booking__icon-wrapper">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m21.73 18-8-14a2 2 0 0 0-3.46 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z" />
+                    <path d="M12 9v4" />
+                    <path d="M12 17h.01" />
+                </svg>
+            </div>
+            <h2 class="modal-cancel-booking__title">Cancelar reserva</h2>
+            <p class="modal-cancel-booking__description">
+                Tem certeza que deseja cancelar sua reserva <span class="modal-cancel-booking__hotel-name">{{
+                    data.hotelName }}</span>?
+                <br><br>
+                Esta ação não pode ser desfeita e podem aplicar-se taxas de cancelamento.
+            </p>
+        </div>
+        <div class="modal-cancel-booking__footer">
+            <button (click)="onClose()" class="button button--outline">
+                Manter reserva
+            </button>
+            <button (click)="onConfirmCancel()" [disabled]="isLoading" class="button button--destructive">
+                @if (isLoading) {
+                <span>Cancelando...</span>
+                } @else {
+                <span>Sim, cancelar</span>
+                }
+            </button>
+        </div>
+    </div>
+</section>

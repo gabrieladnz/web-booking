@@ -1,0 +1,110 @@
+.modal-cancel-booking {
+    &__overlay {
+        position: fixed;
+        inset: 0;
+        background-color: rgba(0, 0, 0, 0.6);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1050;
+        font-family: 'Montserrat', sans-serif;
+    }
+
+    &__content {
+        background-color: #FFFFFF;
+        border-radius: 8px;
+        padding: 32px;
+        max-width: 448px;
+        width: calc(100% - 32px);
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+
+    &__header {
+        text-align: center;
+    }
+
+    &__icon-wrapper {
+        margin: 0 auto 16px auto;
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(239, 68, 68, 0.1);
+        color: #ef4444;
+    }
+
+    &__title {
+        font-size: 20px;
+        font-weight: 600;
+        color: #1F2937;
+    }
+
+    &__description {
+        margin-top: 8px;
+        color: #952735;
+        line-height: 1.6;
+    }
+
+    &__hotel-name {
+        font-weight: 600;
+        color: #1F2937;
+    }
+
+    &__footer {
+        margin-top: 32px;
+        display: flex;
+        flex-direction: column-reverse;
+        gap: 12px;
+
+        @media (min-width: 640px) {
+            flex-direction: row;
+            justify-content: flex-end;
+        }
+    }
+}
+
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-weight: 500;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    width: 100%;
+
+    @media (min-width: 640px) {
+        width: auto;
+    }
+
+    &:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+    }
+
+    &--outline {
+        background-color: transparent;
+        border-color: #E6E6E6;
+        color: #1F2937;
+
+        &:hover:not(:disabled) {
+            background-color: rgba(230, 230, 230, 0.4);
+        }
+    }
+
+    &--destructive {
+        background-color: #ef4444;
+        color: #FFFFFF;
+        border-color: #ef4444;
+
+        &:hover:not(:disabled) {
+            opacity: 0.9;
+        }
+    }
+}
