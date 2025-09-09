@@ -21,7 +21,7 @@
                         <path d="M3 10h18" />
                     </svg>
                 </div>
-                
+
                 <h3 class="booking-authenticated__no-reservations-title">Nenhuma reserva encontrada</h3>
                 <p class="booking-authenticated__no-reservations-text">Você ainda não possui reservas em nossa
                     plataforma.</p>
@@ -144,7 +144,7 @@
 
                         <div class="booking-authenticated__card-actions">
                             @if(reservation.status === 'CONFIRMED') {
-                            <button class="button button--destructive-sm">Cancelar reserva</button>
+                            <button class="button button--destructive-sm" (click)="cancelBooking(reservation.id, reservation.hotel.name)">Cancelar reserva</button>
                             }
                             <button class="button button--outline-sm">Ver detalhes</button>
                         </div>
