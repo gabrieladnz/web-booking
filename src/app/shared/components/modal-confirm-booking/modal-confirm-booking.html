@@ -107,7 +107,7 @@
 
         <!-- PASSO 2: Pagamento -->
         @if (currentStep === 'payment') {
-        <form [formGroup]="paymentForm" (ngSubmit)="onProcessPayment()" class="modal-booking__form">
+        <form [formGroup]="paymentForm" class="modal-booking__form">
             <div class="card">
                 <h2 class="card__title">Informações de pagamento</h2>
                 <div class="card__grid card__grid--2">
@@ -151,7 +151,7 @@
                     @if (isPaying) {
                     <span>Processando...</span>
                     } @else {
-                    <span>Pagar e finalizar reserva</span>
+                    <span (click)="onProcessPayment()">Pagar e finalizar reserva</span>
                     }
                 </button>
             </div>

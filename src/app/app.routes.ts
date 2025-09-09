@@ -13,7 +13,8 @@ export const routes: Routes = [
     },
     {
         path: 'hotel/:id',
-        loadComponent: () => import('./pages/hotel-detail/hotel-detail').then(m => m.HotelDetail)
+        loadComponent: () => import('./pages/hotel-detail/hotel-detail').then(m => m.HotelDetail),
+        data: { renderMode: 'server' }
     },
     {
         path: 'hoteis',
