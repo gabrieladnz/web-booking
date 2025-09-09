@@ -22,6 +22,7 @@ export class ModalConfirmBooking implements OnInit {
   public isPaying = false;
 
   private confirmedBookingId: string | null = null;
+  private confirmedTotal!: number;
 
   constructor(
     private fb: FormBuilder,
@@ -120,11 +121,10 @@ export class ModalConfirmBooking implements OnInit {
 
     this.isConfirming = true;
 
-    // Montando payload conforme a API espera
     const formValue = this.bookingForm.value;
     const bookingPayload: BookingCreateRequest = {
       hotelId: this.hotel.id,
-      roomId: this.hotel.id, // ⚠️ Ajuste: de onde vem o roomId? Coloque aqui o certo.
+      roomId: this.hotel.id,
       checkIn: formValue.checkIn,
       checkOut: formValue.checkOut,
       guests: formValue.guests,
@@ -136,17 +136,17 @@ export class ModalConfirmBooking implements OnInit {
       promoCode: formValue.promoCode
     };
 
-    console.log("Enviando dados da reserva:", bookingPayload);
-
     try {
       const response = await this.bookingService.createBooking(bookingPayload);
       const bookingId = (response as any)?.id ?? (response as any)?.data?.id;
+      const total = (response as any)?.pricing?.total ?? null;
 
       this.confirmedBookingId = bookingId;
+      this.confirmedTotal = total;
+
       this.currentStep = 'payment';
       this.isConfirming = false;
       this.cdref.detectChanges();
-      console.log("Response da reserva:", response, "Booking ID extraído:", bookingId);
     } catch (error) {
       console.error("Erro ao confirmar reserva:", error);
     } finally {
@@ -155,27 +155,22 @@ export class ModalConfirmBooking implements OnInit {
   }
 
   public async onProcessPayment(): Promise<void> {
-    if (this.paymentForm.invalid) {
-      this.paymentForm.markAllAsTouched();
+    if (!this.confirmedBookingId) {
+      console.error("Booking ID não encontrado. Confirme a reserva primeiro.");
       return;
     }
 
     this.isPaying = true;
+
     const paymentPayload = {
-      bookingId: this.confirmedBookingId,
-      ...this.paymentForm.value
+      paymentMethod: this.paymentForm.value.paymentMethod,
+      cardNumber: this.paymentForm.value.cardNumber,
+      amount: this.confirmedTotal
     };
 
-    console.log("Enviando dados de pagamento:", paymentPayload);
-
-    // Lógica de chamada ao serviço de pagamento (simulada)
     try {
-      // await this.paymentService.processPayment(paymentPayload);
-
-      // Simulação
-      await new Promise(resolve => setTimeout(resolve, 1500));
-
-      this.dialogRef.close({ success: true }); // Fecha o modal com sucesso
+      const response = await this.paymentService.confirmPayment(this.confirmedBookingId, paymentPayload);
+      this.dialogRef.close({ success: true, data: response });
     } catch (error) {
       console.error("Erro ao processar pagamento:", error);
     } finally {
