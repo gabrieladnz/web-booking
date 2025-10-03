@@ -218,3 +218,11 @@ CREATE INDEX idx_bookings_dates ON Bookings(checkInDate, checkOutDate);
 - NestJS CLI (`npm install -g @nestjs/cli`)
 - Git
 
+---
+
+## 👥 Equipe
+
+👩🏻‍💻 Gabriela Diniz Santos;
+
+👨🏽‍💻 Leonardo Ferreira Lima.
+
